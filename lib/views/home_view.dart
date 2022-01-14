@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ui_test/controller/data_controller.dart';
 import 'package:ui_test/controller/login_controller.dart';
 import 'package:ui_test/models/data_model.dart';
-import 'package:ui_test/models/fetch_data.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
-  final controller = Get.put(LoginController());
+  final loginController = Get.put(LoginController());
+  final dataController = Get.put(DataController());
 
   @override
   Widget build(BuildContext context) {
-    Future<DataModel> listData;
-    listData = JsonData().fetchData(context);
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -24,21 +23,14 @@ class HomeView extends StatelessWidget {
                     color: Colors.black,
                   ),
                   label: Text('Logout', style: Get.textTheme.button),
-                  onPressed: () => controller.googleLogout(),
+                  onPressed: () => loginController.googleLogout(),
                 ),
               ),
             ],
           ),
           body: FutureBuilder<DataModel>(
-            future: listData,
+            future: dataController.fetchData(),
             builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return const Center(
-                    child: Text(
-                  'Some error Occurred',
-                  style: TextStyle(color: Colors.white),
-                ));
-              }
               if (snapshot.hasData) {
                 return ListView.builder(
                     itemCount: snapshot.data!.data.length,

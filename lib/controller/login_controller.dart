@@ -7,7 +7,14 @@ import 'package:ui_test/views/login_view.dart';
 
 class LoginController extends GetxController {
   final emailController = TextEditingController();
-  final passwdController = TextEditingController();
+  final pswdController = TextEditingController();
+
+  @override
+  void onClose() {
+    emailController.clear();
+    pswdController.clear();
+    super.onClose();
+  }
 
   final googleSignIn = GoogleSignIn();
 
@@ -45,7 +52,7 @@ class LoginController extends GetxController {
 
   googleLogout() async {
     await googleSignIn.signOut().then(
-          (value) => Get.off(LoginView()),
+          (value) => Get.off(() => LoginView()),
         );
   }
 }

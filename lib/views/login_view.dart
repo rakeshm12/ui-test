@@ -23,6 +23,7 @@ class LoginView extends GetView<LoginController> {
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   child: TextFormField(
                     controller: controller.emailController,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       hintText: 'Email',
@@ -41,7 +42,7 @@ class LoginView extends GetView<LoginController> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   child: TextFormField(
-                    controller: controller.passwdController,
+                    controller: controller.pswdController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       hintText: 'Password',
